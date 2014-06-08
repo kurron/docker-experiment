@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --tag="kurron/tomcat:7.0.0" .
+docker build --tag="kurron/tomcat:7.0.54" .
