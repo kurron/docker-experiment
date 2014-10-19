@@ -24,7 +24,7 @@ RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | tee /etc/apt/sourc
 # fetch the latest software updates
 RUN apt-get --quiet update
 
-# install MongoDB 
+# install RabbitMQ 
 RUN apt-get --quiet --yes install rabbitmq-server 
 
 # install plug-ins 
@@ -41,11 +41,25 @@ RUN rabbitmq-plugins list
 # allow access from non-localhost clients
 RUN echo '[{rabbit, [{loopback_users, []}]}].' > /etc/rabbitmq/rabbitmq.config
 
+# Add custom launch script 
+ADD rabbitmq-start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/rabbitmq-start.sh
+
+# Define environment variables so we can use external file system for persistence.
+ENV RABBITMQ_LOG_BASE /data/log
+ENV RABBITMQ_MNESIA_BASE /data/mnesia
+
+# Define mount points.
+VOLUME ["/data/log", "/data/mnesia"]
+
+# Define working directory.
+WORKDIR /data
+
 # expose both the amqp and admin ports 
 EXPOSE 5672 15672
 
 # run RabbitMQ each time the container is started 
-ENTRYPOINT /usr/sbin/rabbitmq-server 
+ENTRYPOINT /usr/local/bin/rabbitmq-start.sh
 
 # we need this to keep the container from exiting when we detach
-CMD tail -F /var/log/rabbitmq/rabbit@rabbitmq.log 
+CMD tail -F /var/log/dmesg 
