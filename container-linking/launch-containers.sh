@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# launch MongoDB but don't map any ports
-docker run --detach --hostname="mongodb" --name="mongodb" --memory="512m" mongo:latest 
+# launch MongoDB, don't map any ports and use /tmp/mongodb-data for persistent storage
+docker run --detach --hostname="mongodb" --name="mongodb" --memory="512m" -v /tmp/mongodb-data:/data mongo:latest 
 
 # launch RabbitMQ but don't map any ports
 docker run --detach --hostname="rabbitmq" --name="rabbitmq" --memory="256m" kurron/rabbitmq:3.3.5 
