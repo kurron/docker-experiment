@@ -1,5 +1,5 @@
 # Trusty 
-FROM kurron/groovy:2.3.7
+FROM kurron/java:1.8.0.25
 
 MAINTAINER Ron Kurr <kurr@kurron.org>
 
