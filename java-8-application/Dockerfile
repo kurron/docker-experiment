@@ -30,10 +30,6 @@ RUN apt-get --quiet --yes install oracle-java8-installer
 # install JDK environment variables
 RUN apt-get --quiet --yes install oracle-java8-set-default 
 
-# make a soft-link to installation directory for convenience
-RUN ln -s /usr/lib/jvm/java-8-oracle /usr/lib/jvm/java-8-oracle 
-RUN ln -s /usr/lib/jvm/java-8-oracle /usr/lib/jvm/default-java 
-
 # make sure the Oracle JDK is in the path
 RUN which java
 RUN java -version
