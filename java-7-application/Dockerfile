@@ -12,27 +12,24 @@ RUN apt-get --quiet --yes dist-upgrade
 # install the wget tool
 RUN apt-get --quiet --yes install wget 
 
-# grab the TAR file from my personal account
-RUN wget --quiet --output-document=/tmp/jdk-7u60-linux-x64.gz http://home.comcast.net/~kurr/vagrant/jdk-7u60-linux-x64.gz
+# import the WebUpd8 public key
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv EEA14886
 
-# create the destination directory
-RUN mkdir -p /usr/lib/jvm
+# add the WebUpd8 repository
+RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' | sudo tee /etc/apt/sources.list.d/webupd8.list
 
-# extract the tar file into the destination directory
-RUN tar --gzip --extract --file=/tmp/jdk-7u60-linux-x64.gz --directory=/usr/lib/jvm
+# Automatically select the Oracle License 
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections 
 
-# make sure the permissions are correct
-RUN chown -R root:root /usr/lib/jvm/jdk1.7.0_60
+# fetch the latest software updates
+RUN apt-get --quiet update
 
-# make a soft-link to installation directory for convenience
-RUN ln -s /usr/lib/jvm/jdk1.7.0_60 /usr/lib/jvm/java-7-oracle 
+# install JDK
+RUN apt-get --quiet --yes install oracle-java7-installer 
 
-# alter the environment file so all accounts get a JAVA_HOME and JDK_HOME
-RUN sed -i '$a JAVA_HOME=/usr/lib/jvm/java-7-oracle' /etc/environment
-RUN sed -i '$a JDK_HOME=/usr/lib/jvm/java-7-oracle' /etc/environment
-RUN cat /etc/environment
+# install JDK environment variables
+RUN apt-get --quiet --yes install oracle-java7-set-default 
 
 # make sure the Oracle JDK is in the path
-RUN ln -s /usr/lib/jvm/java-7-oracle/bin/* /usr/local/bin
 RUN which java
 RUN java -version
