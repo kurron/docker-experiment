@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # launch MongoDB but don't map any ports
-docker run --detach --hostname="mongodb" --name="mongodb" --memory="256m" kurron/mongodb:2.6.5 
+docker run --detach --hostname="mongodb" --name="mongodb" --memory="512m" mongo:latest 
 
 # launch RabbitMQ but don't map any ports
 docker run --detach --hostname="rabbitmq" --name="rabbitmq" --memory="256m" kurron/rabbitmq:3.3.5 
