@@ -3,33 +3,30 @@ FROM ubuntu:14.04
 
 MAINTAINER Ron Kurr <kurr@kurron.org>
 
-# fetch the latest software updates
-RUN apt-get --quiet update
-
-# apply the latest software updates
-RUN apt-get --quiet --yes dist-upgrade 
+# need to do this so apt-get install works 
+RUN apt-get --quiet update 
 
 # install the wget tool
 RUN apt-get --quiet --yes install wget 
 
-# import the WebUpd8 public key
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv EEA14886
+# download JDK 8 archive 
+RUN wget --quiet --output-document=/jdk-8.tar.gz --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz
+ 
+# create the destination directory 
+RUN mkdir -p /usr/lib/jvm 
 
-# add the WebUpd8 repository
-RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' | sudo tee /etc/apt/sources.list.d/webupd8.list
+# unpack the archive 
+RUN tar --gunzip --extract --verbose --file /jdk-8.tar.gz --directory /usr/lib/jvm 
 
-# Automatically select the Oracle License 
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections 
+# clean up the archive 
+RUN rm -f /jdk-8.tar.gz 
 
-# fetch the latest software updates
-RUN apt-get --quiet update
+# set the environment variables 
+ENV JDK_HOME /usr/lib/jvm/jdk1.8.0_25 
+ENV JAVA_HOME /usr/lib/jvm/jdk1.8.0_25
+ENV KURRON_JAVA_VENDOR Oracle 
+ENV KURRON_JAVA_VERSION 1.8.0_25 
 
-# install JDK
-RUN apt-get --quiet --yes install oracle-java8-installer 
+# verify permissions 
+RUN chown -R root:root /usr/lib/jvm 
 
-# install JDK environment variables
-RUN apt-get --quiet --yes install oracle-java8-set-default 
-
-# make sure the Oracle JDK is in the path
-RUN which java
-RUN java -version
