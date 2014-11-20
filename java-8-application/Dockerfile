@@ -24,6 +24,8 @@ RUN rm -f /jdk-8.tar.gz
 # set the environment variables 
 ENV JDK_HOME /usr/lib/jvm/jdk1.8.0_25 
 ENV JAVA_HOME /usr/lib/jvm/jdk1.8.0_25
+
+# export meta-data about this container
 ENV KURRON_JAVA_VENDOR Oracle 
 ENV KURRON_JAVA_VERSION 1.8.0_25 
 
