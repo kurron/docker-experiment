@@ -3,9 +3,6 @@ FROM kurron/java:1.8.0.25
 
 MAINTAINER Ron Kurr <kurr@kurron.org>
 
-# need to do this so apt-get install works 
-RUN apt-get --quiet update 
-
 # install the unzip tool
 RUN apt-get --quiet --yes install unzip 
 
