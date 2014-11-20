@@ -30,3 +30,8 @@ ENV KURRON_GRADLE_VERSION 2.2.0
 # verify permissions 
 RUN chown -R root:root /usr/lib/jvm 
 
+# create a mount point where the source files will be
+VOLUME ["/src"]
+
+# run this when the container is started
+ENTRYPOINT ["/usr/lib/jvm/gradle-2.2/bin/gradle", "--quiet"]
