@@ -31,4 +31,4 @@ RUN chown -R root:root /usr/lib/jvm
 VOLUME ["/src"]
 
 # run this when the container is started
-ENTRYPOINT ["/usr/lib/jvm/gradle-2.2/bin/gradle", "--quiet"]
+ENTRYPOINT ["/usr/lib/jvm/gradle-2.2/bin/gradle"]
