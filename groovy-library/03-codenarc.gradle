@@ -1,0 +1,14 @@
+logger.quiet '03-codnarc.gradle called'
+
+buildscript {
+    allprojects {
+        apply plugin: 'codenarc'
+        codenarc {
+            configFile = file( "${rootDir}/config/codenarc.xml" )
+            toolVersion = codenarcVersion
+            ignoreFailures = false
+            codenarcMain.enabled = true
+            codenarcTest.enabled = true
+        }        
+    }
+}
