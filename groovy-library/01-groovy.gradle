@@ -1,9 +1,7 @@
-logger.quiet '01-groovy.gradle called'
+logger.quiet '01-groovy.gradle'
 
 buildscript {
     allprojects {
-
-        logger.quiet 'groovy.gradle called'
 
         apply plugin: 'groovy'
 
