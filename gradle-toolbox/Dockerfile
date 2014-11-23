@@ -15,9 +15,3 @@ ENV KURRON_GRADLE_VERSION 2.2.0
 
 # create a mount point where the source files will be
 VOLUME ["/src"]
-
-# run this when the container is started
-ENTRYPOINT ["gradle"]
-
-# add a default argument 
-CMD ["-version"]
