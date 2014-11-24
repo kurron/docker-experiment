@@ -1,4 +1,4 @@
-logger.quiet '03-codnarc.gradle'
+logger.quiet '06-codnarc.gradle'
 
 buildscript {
     allprojects {

@@ -1,4 +1,4 @@
-logger.quiet '01-groovy.gradle'
+logger.quiet '02-groovy.gradle'
 
 buildscript {
     allprojects {

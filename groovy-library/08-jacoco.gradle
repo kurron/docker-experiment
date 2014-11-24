@@ -1,4 +1,4 @@
-logger.quiet '04-jacoco.gradle'
+logger.quiet '08-jacoco.gradle'
 
 buildscript {
     allprojects {

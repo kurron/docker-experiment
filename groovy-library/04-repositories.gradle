@@ -1,4 +1,4 @@
-logger.quiet '02-repositories.gradle'
+logger.quiet '04-repositories.gradle'
 
 buildscript {
     allprojects {
