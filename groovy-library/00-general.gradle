@@ -1,10 +1,9 @@
-logger.quiet '05-general.gradle'
+logger.quiet '00-general.gradle'
 
 buildscript {
     allprojects {
        apply plugin: 'project-report'
        apply plugin: 'build-dashboard'
-       apply plugin: 'build-announcements'
 
        defaultTasks << 'projectReport'
        defaultTasks << 'buildDashboard'
