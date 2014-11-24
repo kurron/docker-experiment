@@ -1,0 +1,16 @@
+logger.quiet '10-checkstyle.gradle'
+
+buildscript {
+    allprojects {
+       apply plugin: 'checkstyle'
+       checkstyle {
+           configFile = file( "${rootDir}/config/checkstyle.xml" )
+           configProperties = [suppressionDirectory: "${rootDir}/config" ]
+           ignoreFailures = false
+           showViolations = true
+           toolVersion = checkstyleVersion
+           checkstyleMain.enabled = true
+           checkstyleTest.enabled = true
+       }
+    }
+}
