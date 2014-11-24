@@ -9,9 +9,12 @@ RUN apt-get --quiet --yes install unzip && apt-get clean && wget --quiet --outpu
 # set the environment variables 
 ENV GRADLE_HOME /usr/lib/jvm/gradle-2.2 
 ENV PATH $PATH:$GRADLE_HOME/bin
+ENV GRADLE_USER_HOME  /src/.cache/gradle
 
 # export meta-data about this container
 ENV KURRON_GRADLE_VERSION 2.2.0 
 
 # create a mount point where the source files will be
 VOLUME ["/src"]
+
+ENTRYPOINT [ "gradle", "--info"]
