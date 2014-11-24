@@ -1,0 +1,38 @@
+logger.quiet '12-publication.gradle'
+
+buildscript {
+    allprojects {
+        if ( 'true' == onBuildServer ) {
+            logger.quiet 'publishing to JCenter'
+        }
+        else {
+            logger.quiet 'publishing to local Maven repository'
+            apply plugin: 'maven-publish'
+            publishing {
+                repositories {
+                     maven {
+                         url "$buildDir/maven"
+                     }
+                }
+
+                publications {
+                    mavenJar( MavenPublication ) {
+                       artifact jar
+                    }
+                    mavenSourcesJar( MavenPublication ) {
+                       artifact sourcesJar
+                    }
+                    mavenTestSourcesJar( MavenPublication ) {
+                       artifact testSourcesJar
+                    }
+                    mavenTestBinariesJar( MavenPublication ) {
+                       artifact testBinariesJar
+                    }
+                    mavenGroovydocJar( MavenPublication ) {
+                       artifact groovydocJar
+                    }
+                }
+            }
+        }
+    }
+}
